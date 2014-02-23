@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="../lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../lib/bootstrap/dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="examples.css">
+
+    <script type="text/javascript" src="../lib/angular/angular.js"></script>
+    <script type="text/javascript" src="../src/ng-sort-by.js"></script>
+    <script type="text/javascript" src="items-sorting-app.js"></script>
+</head>
+
+<body ng-app="ItemsSortingApp">
+
+    <div class="container" ng-controller="ItemsCtrl">
+        <div class="page-header">
+            <h1>ngSortBy Examples</h1>
+        </div>
+
+        <div class="example">
+            <div class="sort-options" ng-switch on="ngSortBy">
+
+                <button type="button" class="btn btn-md btn-primary" ng-sort-by="name">
+                    <span>Name</span>
+                    <span class="sort-direction" ng-switch-when="name">&#9650;</span>
+                    <span class="sort-direction" ng-switch-when="-name">&#9660;</span>
+                </button>
+
+                <button type="button" class="btn btn-md btn-primary" ng-sort-by="type">
+                    <span>Type</span>
+                    <span class="sort-direction" ng-switch-when="type">&#9650;</span>
+                    <span class="sort-direction" ng-switch-when="-type">&#9660;</span>
+                </button>
+
+                <button type="button" class="btn btn-md btn-primary" ng-sort-by="vendor.name">
+                    <span>Vendor</span>
+                    <span class="sort-direction" ng-switch-when="vendor.name">&#9650;</span>
+                    <span class="sort-direction" ng-switch-when="-vendor.name">&#9660;</span>
+                </button>
+            </div>
+            <div class="list">
+                <ul>
+                    <li ng-repeat="item in items | orderBy: ngSortBy">{{item.name}} ({{item.vendor.name}}, {{item.type}})</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
