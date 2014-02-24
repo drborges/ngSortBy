@@ -1,87 +1,92 @@
 'use strict'
 
-define(['src/ng-sort-by'], function () {
+define(['lib/sinon/lib/sinon', 'src/ng-sort-by'], function () {
 
-  describe("ngSortBy Module", function () {
+  describe("ngSortBy", function () {
+    var $scope;
+    var ngSortByCtrl;
+
     beforeEach(module('ngSortBy'));
 
-    describe("SortService", function () {
+    beforeEach(inject(function ($compile, $rootScope) {
+      $scope = $rootScope;
+      var sortByNameOnClick = angular.element('<button type="button" ng-model="predicate" ng-sort-by="name"></button>');
+      var sortByTypeOnMouseenter = angular.element('<button type="button" ng-model="predicate" ng-sort-by="type" ng-sort-on="mouseenter"></button>');
+
+      $compile(sortByNameOnClick)($rootScope);
+      $compile(sortByTypeOnMouseenter)($rootScope);
+
+      ngSortByCtrl = sortByNameOnClick.controller('ngSortBy');
+    }));
+
+    describe("ngSortByCtrl", function () {
 
       describe("#typeMatch", function () {
-        it("undefined sort type is a type mismatch", inject(function (SortService) {
+        it("undefined sort type is a type mismatch", function () {
+
           var sortByA = undefined,
               sortByB = '-name';
 
-          var actual = SortService.typeMatch(sortByA, sortByB);
+          var actual = ngSortByCtrl.typeMatch(sortByA, sortByB);
 
           expect(actual).to.be.false;
-        }));
+        });
 
-        it("sort filters 'name' and '-name' have the same sort type 'name'", inject(function (SortService) {
+        it("sort filters 'name' and '-name' have the same sort type 'name'", function () {
           var sortByA = 'name',
               sortByB = '-name';
 
-          var actual = SortService.typeMatch(sortByA, sortByB);
+          var actual = ngSortByCtrl.typeMatch(sortByA, sortByB);
 
           expect(actual).to.be.true;
-        }));
+        });
 
-        it("sort filters 'name' and '-vendor' have different sort types", inject(function (SortService) {
+        it("sort filters 'name' and '-vendor' have different sort types", function () {
           var sortByA = 'name',
               sortByB = '-vendor';
 
-          var actual = SortService.typeMatch(sortByA, sortByB);
+          var actual = ngSortByCtrl.typeMatch(sortByA, sortByB);
 
           expect(actual).to.be.false;
-        }));
+        });
 
-        it("sort filters 'name' and 'vendor' have different sort types", inject(function (SortService) {
+        it("sort filters 'name' and 'vendor' have different sort types", function () {
           var sortByA = 'name',
               sortByB = 'vendor';
 
-          var actual = SortService.typeMatch(sortByA, sortByB);
+          var actual = ngSortByCtrl.typeMatch(sortByA, sortByB);
 
           expect(actual).to.be.false;
-        }));
+        });
       });
 
       describe("#toggleSortDirection", function () {
-        it("toggles ascending sort direction", inject(function (SortService) {
+
+        it("toggles ascending sort direction", function () {
           var sortBy = 'name';
 
-          var toggledSortBy = SortService.toggleSortDirection(sortBy);
+          var toggledSortBy = ngSortByCtrl.toggleSortDirection(sortBy);
 
           expect(toggledSortBy).to.equal('-name');
-        }));
+        });
 
-        it("toggles descending sort direction", inject(function (SortService) {
+        it("toggles descending sort direction", function () {
           var sortBy = '-name';
 
-          var toggledSortBy = SortService.toggleSortDirection(sortBy);
+          var toggledSortBy = ngSortByCtrl.toggleSortDirection(sortBy);
 
           expect(toggledSortBy).to.equal('name');
-        }));
+        });
       });
-    });
 
-    describe("ngSortBy", function () {
-      var $scope;
-      var sortByName;
-
-      beforeEach(inject(function ($compile, $rootScope) {
-        $scope = $rootScope;
-        sortByName = angular.element('<button type="button" ng-model="predicate" ng-sort-by="name"></button>');
-
-        $compile(sortByName)($rootScope);
-      }));
-
-      it("set ngSortByPredicate on button click", function () {
-        expect($scope.ngSortByPredicate).to.be.undefined;
+      // describe("#selectSortBy", function () {
+      //   console.log(sinon)
+      //   ngSortByCtrl.typeMatch = sinon.stub().returns(false);
         
-        browserTrigger(sortByName, 'click');
+      //   var newSortBy = ngSortByCtrl.selectSortBy('name', 'type');
 
-        expect($scope.ngSortByPredicate).to.equal('name');
-      });
+      //   expect(newSortBy).to.equal('name');
+      // });
     });
   });
 });
