@@ -24,8 +24,7 @@
         </div>
 
         <div class="example">
-            <div class="sort-options" ng-switch on="ngSortBy">
-
+            <div class="sort-options" ng-switch on="ngSortByPredicate" ng-model="ngSortByPredicate">
                 <button type="button" class="btn btn-md btn-primary" ng-sort-by="name">
                     <span>Name</span>
                     <span class="sort-direction" ng-switch-when="name">&#9650;</span>
@@ -46,7 +45,34 @@
             </div>
             <div class="list">
                 <ul>
-                    <li ng-repeat="item in items | orderBy: ngSortBy">{{item.name}} ({{item.vendor.name}}, {{item.type}})</li>
+                    <li ng-repeat="item in items | orderBy: ngSortByPredicate">{{item.name}} ({{item.vendor.name}}, {{item.type}})</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="sort-options" ng-switch on="mySortingPredicate" ng-model="mySortingPredicate">
+                <button type="button" class="btn btn-md btn-primary" ng-sort-by="name" on="hover">
+                    <span>Name</span>
+                    <span class="sort-direction" ng-switch-when="name">&#9650;</span>
+                    <span class="sort-direction" ng-switch-when="-name">&#9660;</span>
+                </button>
+
+                <button type="button" class="btn btn-md btn-primary" ng-sort-by="type">
+                    <span>Type</span>
+                    <span class="sort-direction" ng-switch-when="type">&#9650;</span>
+                    <span class="sort-direction" ng-switch-when="-type">&#9660;</span>
+                </button>
+
+                <button type="button" class="btn btn-md btn-primary" ng-sort-by="vendor.name">
+                    <span>Vendor</span>
+                    <span class="sort-direction" ng-switch-when="vendor.name">&#9650;</span>
+                    <span class="sort-direction" ng-switch-when="-vendor.name">&#9660;</span>
+                </button>
+            </div>
+            <div class="list">
+                <ul>
+                    <li ng-repeat="item in items | orderBy: mySortingPredicate">{{item.name}} ({{item.vendor.name}}, {{item.type}})</li>
                 </ul>
             </div>
         </div>

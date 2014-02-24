@@ -20,7 +20,7 @@ require(['lib/chai/chai', 'lib/mocha/mocha'], function (chai) {
   expect = chai.expect;
   mocha.setup('bdd');
 
-  require(['spec/unit/spec-helper', 'spec/e2e/spec-helper'], function() {
+  require(['spec/unit/spec-helper'], function() {
     if (window.mochaPhantomJS) {
       mochaPhantomJS.run();
     } else {

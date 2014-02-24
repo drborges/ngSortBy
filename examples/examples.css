@@ -9,6 +9,7 @@
 }
 
 .example {
+  display: inline-block;
   width: 300px;
   border-radius: 5px;
   background: rgba(70, 70, 70, .1);
