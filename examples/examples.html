@@ -52,19 +52,19 @@
 
         <div class="example">
             <div class="sort-options" ng-switch on="mySortingPredicate" ng-model="mySortingPredicate">
-                <button type="button" class="btn btn-md btn-primary" ng-sort-by="name" on="hover">
+                <button type="button" class="btn btn-md btn-primary" ng-sort-by="name" ng-sort-on="mouseenter">
                     <span>Name</span>
                     <span class="sort-direction" ng-switch-when="name">&#9650;</span>
                     <span class="sort-direction" ng-switch-when="-name">&#9660;</span>
                 </button>
 
-                <button type="button" class="btn btn-md btn-primary" ng-sort-by="type">
+                <button type="button" class="btn btn-md btn-primary" ng-sort-by="type" ng-sort-on="mouseup">
                     <span>Type</span>
                     <span class="sort-direction" ng-switch-when="type">&#9650;</span>
                     <span class="sort-direction" ng-switch-when="-type">&#9660;</span>
                 </button>
 
-                <button type="button" class="btn btn-md btn-primary" ng-sort-by="vendor.name">
+                <button type="button" class="btn btn-md btn-primary" ng-sort-by="vendor.name" ng-sort-on="dblclick">
                     <span>Vendor</span>
                     <span class="sort-direction" ng-switch-when="vendor.name">&#9650;</span>
                     <span class="sort-direction" ng-switch-when="-vendor.name">&#9660;</span>

@@ -19,7 +19,9 @@ angular.module('ngSortBy', [])
     return {
       require: '^ngModel',
       link: function (scope, element, attrs, ngModelCtrl) {
-        element.bind('click', function () {
+        var triggerEventName = attrs.ngSortOn || 'click';
+
+        element.bind(triggerEventName, function () {
           scope.$apply(function () {
             var typeMismatch = !SortService.typeMatch(attrs.ngSortBy, ngModelCtrl.$modelValue);
             var currentSorting = typeMismatch ? attrs.ngSortBy : SortService.toggleSortDirection(ngModelCtrl.$modelValue);
